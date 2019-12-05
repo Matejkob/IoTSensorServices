@@ -1,5 +1,6 @@
 import socket
 import json
+from Server.task_interface import TaskAction
 
 
 class ServerJson:
@@ -81,7 +82,6 @@ server = ServerJson(7555)
 while True:
     print("Waiting for connection ... \n")
     server.accept_request()
-    data = server.rcv_json()
-    print(data)
-    server.send_json({"response": "example response data"})
+    task = TaskAction(server.rcv_json())
+    server.send_json(task.task_handler())
     server.close_connection()
