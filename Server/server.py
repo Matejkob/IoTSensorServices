@@ -1,6 +1,7 @@
 import socket
 import json
-from Server.task_interface import TaskAction
+from .task_interface import TaskAction
+# python3 -m Server.server.py  <------ to run server.py
 
 
 class ServerJson:
