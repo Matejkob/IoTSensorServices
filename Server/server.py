@@ -1,6 +1,7 @@
 import socket
-import json
-from .task_interface import TaskAction
+from .json_cipher import JsonCipher
+
+
 # python3 -m Server.server.py  <------ to run server.py
 
 
@@ -17,7 +18,7 @@ class ServerJson:
         server.close_connection()
     """
 
-    def __init__(self, port, ip_address=""):
+    def __init__(self, port, private_key, ip_address=""):
         """
         Create object which represent server instant with all default parameters. Also it bind local IP of device
         to socket and start listening to defined port.
@@ -32,6 +33,7 @@ class ServerJson:
         self.remote_con_params = ""
         self.sock.bind((self.ip_address, port))
         self.sock.listen(3)
+        self.cipher = JsonCipher(private_key)
 
     def __del__(self):
         self.close_connection()
@@ -43,7 +45,7 @@ class ServerJson:
         :param dictionary:
         :return: None
         """
-        byte_data = json.dumps(dictionary).encode("utf-8")
+        byte_data = self.cipher.encrypt_dict(dictionary)
         self.connection.send(byte_data)
 
     def rcv_json(self):
@@ -52,8 +54,7 @@ class ServerJson:
 
         :return: dictionary
         """
-        dictionary = json.loads(self.connection.recv(4096).decode("utf-8"))
-
+        dictionary = self.cipher.decrypt_dict(self.connection.recv(4096))
         return dictionary
 
     def accept_request(self):
@@ -77,12 +78,3 @@ class ServerJson:
             self.connection.close()
         elif self.sock:
             self.sock.close()
-
-
-server = ServerJson(7555)
-while True:
-    print("Waiting for connection ... \n")
-    server.accept_request()
-    task = TaskAction(server.rcv_json())
-    server.send_json(task.task_handler())
-    server.close_connection()

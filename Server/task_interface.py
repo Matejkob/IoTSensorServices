@@ -1,4 +1,6 @@
 from datetime import datetime
+from .server import ServerJson
+from time import sleep
 
 """
 Example:
@@ -20,13 +22,12 @@ server_response_dict = {
 """
 
 
-class TaskAction:
+class TaskService(ServerJson):
 
-    def __init__(self, received_data):
-        self.received_data = received_data
+    def __init__(self, port, private_key,  server_interface_ip=""):
         self.time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.response_data = {}
-        self.response_data.update({"time_stamp": self.time_stamp})
+        super().__init__(port, private_key, server_interface_ip)
 
     def _initialization(self):
         print("all sensor initialization")
@@ -40,6 +41,7 @@ class TaskAction:
 
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
+        sleep(3)
         self.response_data.update({"success flag": "True"})
         # self.response_data.update({'data_from_sensor_api': METHOD_FROM_BARTEK_API})
 
@@ -54,19 +56,42 @@ class TaskAction:
                                    "error": error_info
                                    })
 
-    def task_handler(self):
+    def clear_response_data(self):
+        self.response_data = {}
+
+    def upadate_dict_with_defaults(self):
+        self.response_data.update({"time_stamp": self.time_stamp, "cipher_flag": "success"})
+
+    def task_handler(self, received_data):
         try:
-            if self.received_data["action"] == "sensors_initialization":
+            if received_data["action"] == "sensors_initialization":
+                self.upadate_dict_with_defaults()
                 self._initialization()
-            elif self.received_data["action"] == "get_data_from_sensor":
-                self._calibration(int(self.received_data["sensor_id"]))
-            elif self.received_data["action"] == "get_state_of_all_sensors":
+            elif received_data["action"] == "get_data_from_sensor":
+                self.upadate_dict_with_defaults()
+                self._calibration(int(received_data["sensor_id"]))
+            elif received_data["action"] == "get_state_of_all_sensors":
+                self.upadate_dict_with_defaults()
                 self._get_state_of_all_sensors()
-            elif self.received_data["action"] == "sensor_calibration":
-                self._calibration(int(self.received_data["sensor_id"]))
+            elif received_data["action"] == "sensor_calibration":
+                self.upadate_dict_with_defaults()
+                self._calibration(int(received_data["sensor_id"]))
             else:
+                self.upadate_dict_with_defaults()
                 self._error_handler("action_error")
         except KeyError:
+            self.upadate_dict_with_defaults()
             self._error_handler("key_error")
 
         return self.response_data
+
+
+server = TaskService(7555, "Adf#44fxc")
+while True:
+    print("Waiting for connection ... \n")
+    server.accept_request()
+    request = server.rcv_json()
+    resp = server.task_handler(request)
+    server.send_json(resp)
+    server.close_connection()
+    server.clear_response_data()
