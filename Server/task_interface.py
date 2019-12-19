@@ -1,5 +1,5 @@
 from datetime import datetime
-from .server import ServerJson
+from .server import SocketServer
 from time import sleep
 
 """
@@ -22,9 +22,9 @@ server_response_dict = {
 """
 
 
-class TaskService(ServerJson):
+class TaskService(SocketServer):
 
-    def __init__(self, port, private_key,  server_interface_ip=""):
+    def __init__(self, port, private_key, server_interface_ip=""):
         self.time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.response_data = {}
         super().__init__(port, private_key, server_interface_ip)
@@ -89,9 +89,9 @@ class TaskService(ServerJson):
 server = TaskService(7555, "Adf#44fxc")
 while True:
     print("Waiting for connection ... \n")
-    server.accept_request()
-    request = server.rcv_json()
+    server.accept_remote_handshake()
+    request = server.rcv_data()
     resp = server.task_handler(request)
-    server.send_json(resp)
+    server.send_data(resp)
     server.close_connection()
     server.clear_response_data()

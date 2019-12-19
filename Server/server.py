@@ -1,63 +1,55 @@
 import socket
-from .json_cipher import JsonCipher
+from .data_ciphering import DataCiphering
 
 
 # python3 -m Server.server.py  <------ to run server.py
 
 
-class ServerJson:
-    """
-   Json socket server class to operate sending and receiving json data. How to use it:
-
-    while True:
-        print("wait for con ...")
-        server.accept_request()
-        data = server.rcv_json()
-        print(data)
-        server.send_json({"response": "msg received"}})
-        server.close_connection()
-    """
+class SocketServer:
+    """Socket server class with symmetric ciphering"""
 
     def __init__(self, port, private_key, ip_address=""):
         """
-        Create object which represent server instant with all default parameters. Also it bind local IP of device
-        to socket and start listening to defined port.
+        Create object which represent server instance with all default parameters. Also it bind local IP address of
+        device and start listening to defined port.
 
         :param port: listening port of device
+        :param private_key: security access key
+        :param ip_address: interface ip address which will be bind to socket
         """
         self.sock = socket.socket()
         self.sock.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
         self.ip_address = ip_address
-        self.port = port
+        self.port = int(port)
         self.connection = None
         self.remote_con_params = ""
-        self.sock.bind((self.ip_address, port))
+        self.sock.bind((self.ip_address, self.port))
         self.sock.listen(3)
-        self.cipher = JsonCipher(private_key)
+        self.cipher = DataCiphering(private_key)
 
     def __del__(self):
         self.close_connection()
 
-    def send_json(self, dictionary):
+    def send_data(self, dictionary):
         """
-        Send json through socket.
+        Send via socket connection.
 
-        :param dictionary:
+        :param dictionary: input data to send through connection
         :return: None
         """
         byte_data = self.cipher.encrypt_dict(dictionary)
         self.connection.send(byte_data)
 
-    def rcv_json(self):
+    def rcv_data(self):
         """
-        Receive json via socket connection.
+        Receive data via socket connection.
 
-        :return: dictionary
+        :return: output data in dictionary format
         """
         dictionary = self.cipher.decrypt_dict(self.connection.recv(4096))
         return dictionary
 
-    def accept_request(self):
+    def accept_remote_handshake(self):
         """
         Accept remote connection on socket side.
 
@@ -70,7 +62,7 @@ class ServerJson:
 
     def close_connection(self):
         """
-        Close connection with check if client is actually connected.
+        Close connection with checking if client is actually connected.
 
         :return:
         """
