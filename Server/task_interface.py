@@ -2,13 +2,18 @@ from datetime import datetime
 from .server import SocketServer
 from time import sleep
 
+# python3 -m Server.task_interface.py  <------ to run task_interface.py
+
 """
-Example:
+----------------JSON COMMUNICATION MODEL--------------------
+############################################################
+Scenario_1:
 
 client_request_dict = {
 
     'action': 'get_data_from_sensor',
     'sensor_id': '2'
+    
 }
 
 server_response_dict = {
@@ -18,6 +23,63 @@ server_response_dict = {
     'data_from_sensor_api': {
     (...)
     }
+    'error': 'key_error' (FAILURE CASE)
+}
+############################################################
+Scenario_2:
+
+client_request_dict = {
+
+    'action': 'sensor_initialization',
+    'sensor_id': '2'
+    
+}
+
+server_response_dict = {
+
+    'success flag': 'True',
+    'time_stamp': '2019-12-05 19:16:01',
+    'data_from_sensor_api': {
+    (...)
+    }
+    'error': 'key_error' (FAILURE CASE)
+}
+############################################################
+Scenario_3:
+
+client_request_dict = {
+
+    'action': 'get_state_of_all_sensors',
+    'sensor_id': 'all'
+    
+}
+
+server_response_dict = {
+
+    'success flag': 'True',
+    'time_stamp': '2019-12-05 19:16:01',
+    'data_from_sensor_api': {
+    (...)
+    }
+    'error': 'key_error' (FAILURE CASE)
+}
+Scenario_4:
+
+client_request_dict = {
+
+    'action': 'sensor_calibration',
+    'sensor_id': 'all'
+    
+}
+
+server_response_dict = {
+
+    'success flag': 'True',
+    'time_stamp': '2019-12-05 19:16:01',
+    'data_from_sensor_api': {
+    (...)
+    }
+    'error': 'key_error' (FAILURE CASE)
 }
 """
 
@@ -59,28 +121,28 @@ class TaskService(SocketServer):
     def clear_response_data(self):
         self.response_data = {}
 
-    def upadate_dict_with_defaults(self):
-        self.response_data.update({"time_stamp": self.time_stamp, "cipher_flag": "success"})
+    def update_dict_with_defaults(self):
+        self.response_data.update({"time_stamp": self.time_stamp})
 
     def task_handler(self, received_data):
         try:
             if received_data["action"] == "sensors_initialization":
-                self.upadate_dict_with_defaults()
+                self.update_dict_with_defaults()
                 self._initialization()
             elif received_data["action"] == "get_data_from_sensor":
-                self.upadate_dict_with_defaults()
+                self.update_dict_with_defaults()
                 self._calibration(int(received_data["sensor_id"]))
             elif received_data["action"] == "get_state_of_all_sensors":
-                self.upadate_dict_with_defaults()
+                self.update_dict_with_defaults()
                 self._get_state_of_all_sensors()
             elif received_data["action"] == "sensor_calibration":
-                self.upadate_dict_with_defaults()
+                self.update_dict_with_defaults()
                 self._calibration(int(received_data["sensor_id"]))
             else:
-                self.upadate_dict_with_defaults()
+                self.update_dict_with_defaults()
                 self._error_handler("action_error")
         except KeyError:
-            self.upadate_dict_with_defaults()
+            self.update_dict_with_defaults()
             self._error_handler("key_error")
 
         return self.response_data

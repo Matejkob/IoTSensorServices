@@ -2,9 +2,6 @@ import socket
 from .data_ciphering import DataCiphering
 
 
-# python3 -m Server.server.py  <------ to run server.py
-
-
 class SocketServer:
     """Socket server class with symmetric ciphering"""
 
