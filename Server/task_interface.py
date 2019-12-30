@@ -1,6 +1,7 @@
 from datetime import datetime
 from .server import SocketServer
 from time import sleep
+from .sensor_test import get_data_from_dht11
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
 
@@ -103,9 +104,8 @@ class TaskService(SocketServer):
 
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
-        sleep(3)
         self.response_data.update({"success flag": "True"})
-        # self.response_data.update({'data_from_sensor_api': METHOD_FROM_BARTEK_API})
+        self.response_data.update(get_data_from_dht11(4))
 
     def _get_state_of_all_sensors(self):
         print("getting state of sensors")
