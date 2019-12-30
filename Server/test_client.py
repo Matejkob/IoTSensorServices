@@ -3,12 +3,12 @@ from .data_ciphering import DataCiphering
 
 s = socket.socket()
 port = 7555
-s.connect(("", port))
+s.connect(("80.54.73.236", port))
 
 client_request_dict = {
 
     'action': 'get_data_from_sensor',
-    'sensor_id': '2',
+    'sensor_id': '4',
 }
 
 obj = DataCiphering("Adf#44fxc").encrypt_dict(client_request_dict)

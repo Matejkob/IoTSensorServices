@@ -131,7 +131,7 @@ class TaskService(SocketServer):
                 self._initialization()
             elif received_data["action"] == "get_data_from_sensor":
                 self.update_dict_with_defaults()
-                self._calibration(int(received_data["sensor_id"]))
+                self._get_data_from_sensor(int(received_data["sensor_id"]))
             elif received_data["action"] == "get_state_of_all_sensors":
                 self.update_dict_with_defaults()
                 self._get_state_of_all_sensors()
