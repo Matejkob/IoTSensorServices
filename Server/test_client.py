@@ -3,7 +3,7 @@ from .data_ciphering import DataCiphering
 
 s = socket.socket()
 port = 7555
-s.connect(("80.54.73.236", port))
+s.connect(("IP", port))
 
 client_request_dict = {
 
