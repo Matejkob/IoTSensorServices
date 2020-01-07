@@ -1,11 +1,11 @@
 import socket
 from Server.data_ciphering import DataCiphering
 
-# Run from terminal (in repo dir) ------ > python3 -m tests.runner.py
-
-s = socket.socket()
-port = 7555
-s.connect(("IP", port))
+"""
+Some Test Cases to check if our server is still working.
+BEFORE RUN MODIFY SERVER_IP VALUE
+TO RUN TESTS ------>>> python3 -m tests.runner.py (in repo dir)
+"""
 
 client_request_dict_1 = {
     'action': 'get_data_from_sensor',
@@ -17,19 +17,33 @@ client_request_dict_2 = {
     'sensor_id': '4',
 }
 
+server_ip = "Here should be server ip"
+port = 7555
 #############################################################################
 # TestCase 1
 #############################################################################
+s = socket.socket()
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.connect((server_ip, port))
 s.send(DataCiphering("Adf#44fxc").encrypt_dict(client_request_dict_1))
-resp = s.recv(4096)
-assert DataCiphering("Adf#44fxc").decrypt_dict(resp)["success flag"] == 'True'
-assert not DataCiphering("Adf#44fxc").decrypt_dict(resp)["data"] == {}
+resp_1 = DataCiphering("Adf#44fxc").decrypt_dict(s.recv(4096))
+print("RECEIVED RESPONSE:")
+print(resp_1)
+s.close()
+assert resp_1["success flag"] == 'True'
+assert not resp_1["data"] == {}
 print("TestCase 1 ----------> passed\n")
 #############################################################################
 # TestCase 2
 #############################################################################
+s = socket.socket()
+s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+s.connect((server_ip, port))
 s.send(DataCiphering("Adf#44fxc").encrypt_dict(client_request_dict_2))
-resp = s.recv(4096)
-assert DataCiphering("Adf#44fxc").decrypt_dict(resp) == {}
+resp_2 = DataCiphering("Adf#44fxc").decrypt_dict(s.recv(4096))
+print("RECEIVED RESPONSE:")
+print(resp_2)
+assert resp_2["success flag"] == 'False'
+assert resp_2["error"] == 'action_error'
 print("TestCase 2 ----------> passed\n")
-print("All TestCases Passed with success\n")
+print("All TCs Passed with success\n")
