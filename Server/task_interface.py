@@ -1,6 +1,5 @@
 from datetime import datetime
 from .server import SocketServer
-from time import sleep
 from .sensor_test import get_data_from_dht11
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
@@ -94,56 +93,65 @@ class TaskService(SocketServer):
 
     def _initialization(self):
         print("all sensor initialization")
-        self.response_data.update({"success flag": "True"})
-        # self.response_data.update({'data_from_sensor_api': METHOD_FROM_BARTEK_API})
+        # response_from_sensor = SensorAPI()._initialization()
+        response_from_sensor = dict()
+        if response_from_sensor:
+            self.update_dict_with_task_information()
+        else:
+            self.update_dict_with_task_information(response_from_sensor['error_code'])
 
     def _calibration(self, sensor_id):
         print("sensor calibration")
-        self.response_data.update({"success flag": "True"})
-        # self.response_data.update({'data_from_sensor_api': METHOD_FROM_BARTEK_API})
+        # response_from_sensor = SensorAPI().calibration(sensor_id)
+        response_from_sensor = dict()
+        if response_from_sensor:
+            self.update_dict_with_task_information()
+        else:
+            self.update_dict_with_task_information(response_from_sensor['error_code'])
 
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
-        self.response_data.update({"success flag": "True"})
-        self.response_data.update(get_data_from_dht11(4))
+        # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
+        response_from_sensor = dict()
+        if response_from_sensor:
+            self.update_dict_with_task_information()
+        else:
+            self.update_dict_with_task_information(response_from_sensor['error_code'])
 
     def _get_state_of_all_sensors(self):
         print("getting state of sensors")
-        self.response_data.update({"success flag": "True"})
-        # self.response_data.update({'data_from_sensor_api': METHOD_FROM_BARTEK_API})
-
-    def _error_handler(self, error_info):
-        print("getting error info")
-        self.response_data.update({"success flag": "False",
-                                   "error": error_info
-                                   })
+        # response_from_sensor = SensorAPI().get_state_of_all_sensors()
+        response_from_sensor = dict()
+        if response_from_sensor:
+            self.update_dict_with_task_information()
+        else:
+            self.update_dict_with_task_information(response_from_sensor['error_code'])
 
     def clear_response_data(self):
         self.response_data = {}
 
-    def update_dict_with_defaults(self):
+    def update_dict_with_task_information(self, error_info=None):
         self.response_data.update({"time_stamp": self.time_stamp})
+        if error_info:
+            self.response_data.update({"success flag": "False",
+                                       "error": error_info})
+        else:
+            self.response_data.update({"success flag": "True"})
 
     def task_handler(self, received_data):
         try:
             if received_data["action"] == "sensors_initialization":
-                self.update_dict_with_defaults()
                 self._initialization()
             elif received_data["action"] == "get_data_from_sensor":
-                self.update_dict_with_defaults()
                 self._get_data_from_sensor(int(received_data["sensor_id"]))
             elif received_data["action"] == "get_state_of_all_sensors":
-                self.update_dict_with_defaults()
                 self._get_state_of_all_sensors()
             elif received_data["action"] == "sensor_calibration":
-                self.update_dict_with_defaults()
                 self._calibration(int(received_data["sensor_id"]))
             else:
-                self.update_dict_with_defaults()
-                self._error_handler("action_error")
+                self.update_dict_with_task_information("action_error")
         except KeyError:
-            self.update_dict_with_defaults()
-            self._error_handler("key_error")
+            self.update_dict_with_task_information("key_error")
 
         return self.response_data
 
