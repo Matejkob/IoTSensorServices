@@ -1,8 +1,3 @@
-import Adafruit_DHT
-import RPi.GPIO as GPIO
-import datetime
-
-
 # This code can be useful for standalone run but for our purpose it should return data
 # in proper way ---> python dictionary based on JSON COMMUNICATION MODEL in file
 # task_interface.py
@@ -36,23 +31,28 @@ import datetime
 # When you finish this file you can modify task_interface.py and run runner.py
 
 # you can do changes on other branch and create PR then review will be much easier for me :D
+import Adafruit_DHT
+import RPi.GPIO as GPIO
+import datetime
+import time
 
 class SensorAPI:
     """
     Class to measure temperature, humidity and distance from sensor to opstacle.
     Designed specialy for raspberry pi.
     """
-
-    self.temperature = ""
-    self.humidity = ""
-    self.distance = ""
-    self.sensor_table = {"Temperature and Humindity": {"status": "active"},
-                         "HC SR04": {"status": "active"}}
+    def __init__(self):
+        self.initialize_all_sensors()
+        self.temperature = ""
+        self.humidity = ""
+        self.distance = ""
+        self.sensor_table = {"Temperature and Humindity": {"status": "active"},
+                             "HC SR04": {"status": "active"}}
 
     def initialize_all_sensors(self):
         self.hcSr04_Init()
 
-    def getTempHumi(DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
+    def getTempHumi(self,DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
         """
         Get the data from sensor od Temperature and Humidity
         :param sensor: insert pin where is pluged in your sensor and type of sensoe
@@ -63,14 +63,14 @@ class SensorAPI:
 
         humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT11_pin)
         if humidity is not None and temperature is not None:
-            return {"data": {"Temp": '{0:0.1f}*C'.format(temperature), "Humidity": '{0:0.1f}%'.format(humidity)}}
+            return {"Temp": '{0:0.1f}*C'.format(temperature), "Humidity": '{0:0.1f}%'.format(humidity)}
             self.humidity = humidity
             self.temperature = temperature
         else:
             return {"Temp": None, "Humidity": None }
 
 
-    def hcSr04_Init(TRIG=21, ECHO=20):
+    def hcSr04_Init(self,TRIG = 21, ECHO = 20):
         """
         Init the HCSR04 sensor
         """
@@ -82,7 +82,7 @@ class SensorAPI:
         GPIO.setup(ECHO, GPIO.IN)
 
 
-    def getDistance_Of_HcSr04Init(pinTrig=21, pinEcho=20):
+    def getDistance_Of_HcSr04Init(self,pinTrig=21, pinEcho=20):
         """
         Function to get the distance form opstacle to our sensor
         :param pinEcho: pin to Trigered, pin to get Data Echo
@@ -105,19 +105,18 @@ class SensorAPI:
         return {"Distance": distance}
 
     def getData(self):
-        return {"data":{self.getDistance_Of_HcSr04Init(),self.getTempHumi(),{"Time" : datetime.datetime.now()}}}
-
-    def main():
-        try:
-            self.hcSr04_Init()
-            print(self.getData())
-            GPIO.cleanup()
-        except KeyboardInterrupt:
-            pass
-        finally:
-            GPIO.cleanup()
-
-
+        tim = datetime.datetime.now()
+        JSon = {"data":{"Time" : "{}".format(tim)}}
+        JSon["data"].update(self.getDistance_Of_HcSr04Init())
+        JSon["data"].update(self.getTempHumi())
+        return JSon
 
 if __name__ == '__main__':
-    SensorAPI.main()
+    a = SensorAPI()
+    try:
+        print(a.getData())
+        GPIO.cleanup()
+    except KeyboardInterrupt:
+        pass
+    finally:
+        GPIO.cleanup()
