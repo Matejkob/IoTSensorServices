@@ -38,12 +38,16 @@ import time
 # you can do changes on other branch and create PR then review will be much easier for me :D
 
 
-def GetTempHumi(DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
+def getTempHumi(DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
     humidity, temperature = Adafruit_DHT.read_retry(sensor, DHT11_pin)
-    return humidity, temperature
+    
+    if humidity is not None and temperature is not None:
+        return {"data": {"Temp": '{0:0.1f}*C'.format(temperature), "Humidity": '{0:0.1f}%'.format(humidity)}}
+    else:
+        return {"data": {"Temp": None, "Humidity": None}}
 
 
-def HC_SR04_init(TRIG=21, ECHO=20):
+def hcSr04Init(TRIG=21, ECHO=20):
     # BCM numbering scheme
     GPIO.setmode(GPIO.BCM)
     GPIO.setwarnings(False)
@@ -55,7 +59,7 @@ def HC_SR04_init(TRIG=21, ECHO=20):
     GPIO.setup(ECHO, GPIO.IN)
 
 
-def GetDistance(pinTrig=21, pinEcho=20):
+def getDistance(pinTrig=21, pinEcho=20):
     # Pulse to start measure with HC-SR04
     GPIO.output(pinTrig, True)
     time.sleep(0.00001)
