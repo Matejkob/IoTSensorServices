@@ -15,9 +15,13 @@ class SensorAPI:
         self.distance = ""
         self.sensor_table = {"Temperature and Humindity": {"status": "active"},
                              "HC SR04": {"status": "active"}}
+        self.initialize_all_sensors()
 
     def initialize_all_sensors(self):
         self.hcSr04_Init()
+
+    def active_sensors(self):
+        return self.sensor_table
 
     def getTempHumi(self,DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
         """
