@@ -36,11 +36,13 @@ import RPi.GPIO as GPIO
 import datetime
 import time
 
+
 class SensorAPI:
     """
     Class to measure temperature, humidity and distance from sensor to opstacle.
     Designed specialy for raspberry pi.
     """
+
     def __init__(self):
         self.initialize_all_sensors()
         self.temperature = ""
@@ -52,7 +54,7 @@ class SensorAPI:
     def initialize_all_sensors(self):
         self.hcSr04_Init()
 
-    def getTempHumi(self,DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
+    def getTempHumi(self, DHT11_pin=4, sensor=Adafruit_DHT.DHT11):
         """
         Get the data from sensor od Temperature and Humidity
         :param sensor: insert pin where is pluged in your sensor and type of sensoe
@@ -67,10 +69,9 @@ class SensorAPI:
             self.humidity = humidity
             self.temperature = temperature
         else:
-            return {"Temp": None, "Humidity": None }
+            return {"Temp": None, "Humidity": None}
 
-
-    def hcSr04_Init(self,TRIG = 21, ECHO = 20):
+    def hcSr04_Init(self, TRIG=21, ECHO=20):
         """
         Init the HCSR04 sensor
         """
@@ -81,8 +82,7 @@ class SensorAPI:
         GPIO.setup(TRIG, GPIO.OUT)
         GPIO.setup(ECHO, GPIO.IN)
 
-
-    def getDistance_Of_HcSr04Init(self,pinTrig=21, pinEcho=20):
+    def getDistance_Of_HcSr04Init(self, pinTrig=21, pinEcho=20):
         """
         Function to get the distance form opstacle to our sensor
         :param pinEcho: pin to Trigered, pin to get Data Echo
@@ -106,10 +106,11 @@ class SensorAPI:
 
     def getData(self):
         tim = datetime.datetime.now()
-        JSon = {"data":{"Time" : "{}".format(tim)}}
+        JSon = {"data": {"Time": "{}".format(tim)}}
         JSon["data"].update(self.getDistance_Of_HcSr04Init())
         JSon["data"].update(self.getTempHumi())
         return JSon
+
 
 if __name__ == '__main__':
     a = SensorAPI()
