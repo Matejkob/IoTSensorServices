@@ -10,6 +10,10 @@ import UIKit
 
 class MainTabBarViewController: UITabBarController {
     
+    private let homeViewController = HomeViewController()
+    private let addDeviceViewController = AddDeviceViewController()
+    private let userProfileViewController = UserProfileViewController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViewControllers()
@@ -20,9 +24,9 @@ class MainTabBarViewController: UITabBarController {
 extension MainTabBarViewController {
     private func setupViewControllers() {
         viewControllers = [
-            createDummyNavigationController(withImageName: "house", for: HomeViewController()),
-            createDummyViewController(withImageName: "plus.circle", for: AddDeviceViewController()),
-            createDummyNavigationController(withImageName: "person", for: UserProfileViewController())
+            createDummyNavigationController(withImageName: "house", for: homeViewController),
+            createDummyViewController(withImageName: "plus.circle", for: addDeviceViewController),
+            createDummyNavigationController(withImageName: "person", for: userProfileViewController)
         ]
     }
     
@@ -51,6 +55,7 @@ extension MainTabBarViewController: UITabBarControllerDelegate {
     func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
         if viewController.isKind(of: AddDeviceViewController.self) {
             let addDeviceViewController = AddDeviceViewController()
+            addDeviceViewController.homeViewController = homeViewController
             let navigationController = UINavigationController(rootViewController: addDeviceViewController)
             present(navigationController, animated: true)
             return false

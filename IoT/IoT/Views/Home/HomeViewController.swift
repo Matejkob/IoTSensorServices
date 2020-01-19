@@ -11,6 +11,8 @@ import SnapKit
 
 class HomeViewController: UIViewController {
     
+    var collectionView: UICollectionView?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -33,15 +35,15 @@ extension HomeViewController {
         let itemWidth = (screenWidth - 3 * 16.0) / 2.0
         collectionViewLayout.itemSize = CGSize(width: itemWidth, height: 110.0)
         
-        let collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
+        collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
+        collectionView?.delegate = self
+        collectionView?.dataSource = self
+        collectionView?.register(CollectionViewCell.self, forCellWithReuseIdentifier: CollectionViewCell.reuseIdentifier)
         
-        collectionView.backgroundColor = .white
+        collectionView?.backgroundColor = .white
         
-        view.addSubview(collectionView)
-        collectionView.snp.makeConstraints { (make) in
+        view.addSubview(collectionView!)
+        collectionView?.snp.makeConstraints { (make) in
             make.top.bottom.equalTo(self.view)
             make.left.equalTo(self.view).offset(16)
             make.right.equalTo(self.view).offset(-16)
@@ -55,7 +57,7 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 4
+        return DevicesManagers.shared.devices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

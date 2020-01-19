@@ -10,6 +10,8 @@ import UIKit
 
 class AddDeviceViewController: UIViewController {
     
+    var homeViewController: HomeViewController?
+    
     private let nameInputTextField = InputTextField()
     private let ipInputTextField = InputTextField()
     private let portInputTextField = InputTextField()
@@ -106,5 +108,7 @@ extension AddDeviceViewController {
         newDevice.port = port
         newDevice.key = key
         DevicesManagers.shared.devices.append(newDevice)
+        homeViewController?.collectionView?.reloadData()
+        dismissAction()
     }
 }
