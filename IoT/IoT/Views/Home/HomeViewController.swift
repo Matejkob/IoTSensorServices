@@ -34,6 +34,8 @@ extension HomeViewController {
         let screenWidth = UIScreen.main.bounds.size.width
         let itemWidth = (screenWidth - 3 * 16.0) / 2.0
         collectionViewLayout.itemSize = CGSize(width: itemWidth, height: 110.0)
+        collectionViewLayout.minimumLineSpacing = 16.0
+        collectionViewLayout.minimumInteritemSpacing = 16.0
         
         collectionView = UICollectionView(frame: .zero, collectionViewLayout: collectionViewLayout)
         collectionView?.delegate = self
@@ -57,7 +59,7 @@ extension HomeViewController: UICollectionViewDelegate {
 
 extension HomeViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return DevicesManagers.shared.devices.count
+        return 7//DevicesManagers.shared.devices.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
