@@ -17,6 +17,10 @@
 		612171A823D44147005225A3 /* MainTabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 612171A723D44147005225A3 /* MainTabBarViewController.swift */; };
 		6163A5C823D4515400F06158 /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5C723D4515400F06158 /* CollectionViewCell.swift */; };
 		6163A5CB23D45A6800F06158 /* AddDeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5CA23D45A6800F06158 /* AddDeviceViewController.swift */; };
+		6163A5CD23D4685500F06158 /* InputTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5CC23D4685500F06158 /* InputTextField.swift */; };
+		6163A5CF23D46D9900F06158 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5CE23D46D9900F06158 /* SaveButton.swift */; };
+		6163A5D423D4716600F06158 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D323D4716600F06158 /* Device.swift */; };
+		6163A5D623D471BC00F06158 /* DevicesManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D523D471BC00F06158 /* DevicesManagers.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +37,10 @@
 		612171A723D44147005225A3 /* MainTabBarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarViewController.swift; sourceTree = "<group>"; };
 		6163A5C723D4515400F06158 /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		6163A5CA23D45A6800F06158 /* AddDeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = AddDeviceViewController.swift; path = IoT/Views/AddDeviceViewController.swift; sourceTree = SOURCE_ROOT; };
+		6163A5CC23D4685500F06158 /* InputTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InputTextField.swift; sourceTree = "<group>"; };
+		6163A5CE23D46D9900F06158 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
+		6163A5D323D4716600F06158 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
+		6163A5D523D471BC00F06158 /* DevicesManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesManagers.swift; sourceTree = "<group>"; };
 		C361152A17FF0745B2FA3648 /* Pods-IoT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoT.debug.xcconfig"; path = "Target Support Files/Pods-IoT/Pods-IoT.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -96,6 +104,8 @@
 			children = (
 				612171AC23D441A3005225A3 /* Application */,
 				612171AB23D4418E005225A3 /* Views */,
+				6163A5D123D4710600F06158 /* Managers */,
+				6163A5D223D4711800F06158 /* Models */,
 				612171AA23D44182005225A3 /* Resources */,
 				612171A923D4416C005225A3 /* Supporting Files */,
 				612171A123D43DEF005225A3 /* Info.plist */,
@@ -143,8 +153,26 @@
 			isa = PBXGroup;
 			children = (
 				6163A5CA23D45A6800F06158 /* AddDeviceViewController.swift */,
+				6163A5CC23D4685500F06158 /* InputTextField.swift */,
+				6163A5CE23D46D9900F06158 /* SaveButton.swift */,
 			);
 			path = "Add Device";
+			sourceTree = "<group>";
+		};
+		6163A5D123D4710600F06158 /* Managers */ = {
+			isa = PBXGroup;
+			children = (
+				6163A5D523D471BC00F06158 /* DevicesManagers.swift */,
+			);
+			path = Managers;
+			sourceTree = "<group>";
+		};
+		6163A5D223D4711800F06158 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6163A5D323D4716600F06158 /* Device.swift */,
+			);
+			path = Models;
 			sourceTree = "<group>";
 		};
 		D4AB20091BDAF2B7F012315F /* Pods */ = {
@@ -283,6 +311,10 @@
 				6163A5CB23D45A6800F06158 /* AddDeviceViewController.swift in Sources */,
 				6163A5C823D4515400F06158 /* CollectionViewCell.swift in Sources */,
 				6121719423D43DED005225A3 /* AppDelegate.swift in Sources */,
+				6163A5D423D4716600F06158 /* Device.swift in Sources */,
+				6163A5CF23D46D9900F06158 /* SaveButton.swift in Sources */,
+				6163A5CD23D4685500F06158 /* InputTextField.swift in Sources */,
+				6163A5D623D471BC00F06158 /* DevicesManagers.swift in Sources */,
 				6121719623D43DED005225A3 /* SceneDelegate.swift in Sources */,
 				6114B6A023D444D500E4C155 /* HomeViewController.swift in Sources */,
 			);
