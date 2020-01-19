@@ -20,20 +20,41 @@ class MainTabBarViewController: UITabBarController {
 extension MainTabBarViewController {
     private func setupViewControllers() {
         viewControllers = [
-            createDummyNavigationController(withImage: "house", for: HomeViewController()),
-            createDummyNavigationController(withImage: "person", for: UserProfileViewController())
+            createDummyNavigationController(withImageName: "house", for: HomeViewController()),
+            createDummyViewController(withImageName: "plus.circle", for: AddDeviceViewController()),
+            createDummyNavigationController(withImageName: "person", for: UserProfileViewController())
         ]
     }
     
     private func setupView() {
+        tabBar.isTranslucent = false
         tabBar.backgroundColor = .white
         tabBar.tintColor = .black
+        tabBar.unselectedItemTintColor = .black
+        delegate = self
     }
     
-    private func createDummyNavigationController(withImage imageName: String, for viewController: UIViewController) -> UINavigationController {
+    private func createDummyNavigationController(withImageName imageName: String, for viewController: UIViewController) -> UINavigationController {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.tabBarItem.image = UIImage(systemName: imageName)
         navigationController.tabBarItem.selectedImage = UIImage(systemName: imageName + ".fill")
         return navigationController
+    }
+    
+    private func createDummyViewController(withImageName imageName: String, for viewController: UIViewController) -> UIViewController {
+        viewController.tabBarItem.image = UIImage(systemName: imageName)
+        return viewController
+    }
+}
+
+extension MainTabBarViewController: UITabBarControllerDelegate {
+    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
+        if viewController.isKind(of: AddDeviceViewController.self) {
+            let addDeviceViewController = AddDeviceViewController()
+            let navigationController = UINavigationController(rootViewController: addDeviceViewController)
+            present(navigationController, animated: true)
+            return false
+        }
+        return true
     }
 }

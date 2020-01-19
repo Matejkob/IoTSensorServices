@@ -1,0 +1,3 @@
+${PODS_ROOT}/Target Support Files/Pods-IoT/Pods-IoT-frameworks.sh
+${BUILT_PRODUCTS_DIR}/BlueSocket/Socket.framework
+${BUILT_PRODUCTS_DIR}/SnapKit/SnapKit.framework
