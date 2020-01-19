@@ -1,5 +1,5 @@
 PODS:
-  - BlueSocket (1.0.49)
+  - BlueSocket (1.0.52)
   - SnapKit (5.0.1)
 
 DEPENDENCIES:
@@ -12,7 +12,7 @@ SPEC REPOS:
     - SnapKit
 
 SPEC CHECKSUMS:
-  BlueSocket: 973993722fd579a62bb6469cdf7f1ccc8054796c
+  BlueSocket: 1acd943acb07b55905291d608649fcfbf8cbd57d
   SnapKit: 97b92857e3df3a0c71833cce143274bf6ef8e5eb
 
 PODFILE CHECKSUM: c3593135c5881d6a9a09f91344c73b8e86698330

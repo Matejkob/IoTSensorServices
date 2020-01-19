@@ -35,7 +35,6 @@ extension AddDeviceViewController {
         view.backgroundColor = .white
         title = "Dodaj swoje urządzenie"
         navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: .cancel, target: self, action: #selector(dismissAction))
-        navigationItem.leftBarButtonItem?.tintColor = .systemPink
         
         setupInputsStackView()
     }

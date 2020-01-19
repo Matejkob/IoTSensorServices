@@ -42,6 +42,7 @@ extension MainTabBarViewController {
         let navigationController = UINavigationController(rootViewController: viewController)
         navigationController.tabBarItem.image = UIImage(systemName: imageName)
         navigationController.tabBarItem.selectedImage = UIImage(systemName: imageName + ".fill")
+        navigationController.navigationBar.tintColor = .systemPink
         return navigationController
     }
     
@@ -57,6 +58,7 @@ extension MainTabBarViewController: UITabBarControllerDelegate {
             let addDeviceViewController = AddDeviceViewController()
             addDeviceViewController.homeViewController = homeViewController
             let navigationController = UINavigationController(rootViewController: addDeviceViewController)
+            navigationController.navigationBar.tintColor = .systemPink
             present(navigationController, animated: true)
             return false
         }

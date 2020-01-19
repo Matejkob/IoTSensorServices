@@ -69,4 +69,12 @@ extension HomeViewController: UICollectionViewDataSource {
         
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let deviceDetailsViewController = DeviceDetailsViewController()
+//        deviceDetailsViewController.device = DevicesManagers.shared.devices[indexPath.row]
+//        deviceDetailsViewController.title = DevicesManagers.shared.devices[indexPath.row].name
+        deviceDetailsViewController.hidesBottomBarWhenPushed = true
+        navigationController?.pushViewController(deviceDetailsViewController, animated: true)
+    }
 }

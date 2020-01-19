@@ -21,6 +21,9 @@
 		6163A5CF23D46D9900F06158 /* SaveButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5CE23D46D9900F06158 /* SaveButton.swift */; };
 		6163A5D423D4716600F06158 /* Device.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D323D4716600F06158 /* Device.swift */; };
 		6163A5D623D471BC00F06158 /* DevicesManagers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D523D471BC00F06158 /* DevicesManagers.swift */; };
+		6163A5DA23D47E6900F06158 /* DeviceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D923D47E6900F06158 /* DeviceDetailsViewController.swift */; };
+		61654B9F23D4A2860065AAF6 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61654B9E23D4A2860065AAF6 /* Request.swift */; };
+		61654BA123D4A3610065AAF6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61654BA023D4A3610065AAF6 /* Response.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +44,9 @@
 		6163A5CE23D46D9900F06158 /* SaveButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveButton.swift; sourceTree = "<group>"; };
 		6163A5D323D4716600F06158 /* Device.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Device.swift; sourceTree = "<group>"; };
 		6163A5D523D471BC00F06158 /* DevicesManagers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DevicesManagers.swift; sourceTree = "<group>"; };
+		6163A5D923D47E6900F06158 /* DeviceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailsViewController.swift; sourceTree = "<group>"; };
+		61654B9E23D4A2860065AAF6 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
+		61654BA023D4A3610065AAF6 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
 		C361152A17FF0745B2FA3648 /* Pods-IoT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoT.debug.xcconfig"; path = "Target Support Files/Pods-IoT/Pods-IoT.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -56,12 +62,12 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		6114B6A323D449A900E4C155 /* Main Tab Bar */ = {
+		6114B6A323D449A900E4C155 /* Main TabBar */ = {
 			isa = PBXGroup;
 			children = (
 				612171A723D44147005225A3 /* MainTabBarViewController.swift */,
 			);
-			path = "Main Tab Bar";
+			path = "Main TabBar";
 			sourceTree = "<group>";
 		};
 		6114B6A423D449B200E4C155 /* Home */ = {
@@ -132,10 +138,11 @@
 		612171AB23D4418E005225A3 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				6163A5D823D47E3C00F06158 /* Device Details */,
 				6163A5C923D45A4900F06158 /* Add Device */,
 				6114B6A523D449BB00E4C155 /* User Profile */,
 				6114B6A423D449B200E4C155 /* Home */,
-				6114B6A323D449A900E4C155 /* Main Tab Bar */,
+				6114B6A323D449A900E4C155 /* Main TabBar */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -171,8 +178,18 @@
 			isa = PBXGroup;
 			children = (
 				6163A5D323D4716600F06158 /* Device.swift */,
+				61654B9E23D4A2860065AAF6 /* Request.swift */,
+				61654BA023D4A3610065AAF6 /* Response.swift */,
 			);
 			path = Models;
+			sourceTree = "<group>";
+		};
+		6163A5D823D47E3C00F06158 /* Device Details */ = {
+			isa = PBXGroup;
+			children = (
+				6163A5D923D47E6900F06158 /* DeviceDetailsViewController.swift */,
+			);
+			path = "Device Details";
 			sourceTree = "<group>";
 		};
 		D4AB20091BDAF2B7F012315F /* Pods */ = {
@@ -307,9 +324,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				612171A823D44147005225A3 /* MainTabBarViewController.swift in Sources */,
+				61654B9F23D4A2860065AAF6 /* Request.swift in Sources */,
 				6114B6A223D4471800E4C155 /* UserProfileViewController.swift in Sources */,
 				6163A5CB23D45A6800F06158 /* AddDeviceViewController.swift in Sources */,
+				6163A5DA23D47E6900F06158 /* DeviceDetailsViewController.swift in Sources */,
 				6163A5C823D4515400F06158 /* CollectionViewCell.swift in Sources */,
+				61654BA123D4A3610065AAF6 /* Response.swift in Sources */,
 				6121719423D43DED005225A3 /* AppDelegate.swift in Sources */,
 				6163A5D423D4716600F06158 /* Device.swift in Sources */,
 				6163A5CF23D46D9900F06158 /* SaveButton.swift in Sources */,
