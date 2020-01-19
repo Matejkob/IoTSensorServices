@@ -63,6 +63,7 @@ server_response_dict = {
     }
     'error': 'key_error' (FAILURE CASE)
 }
+############################################################
 Scenario_4:
 
 client_request_dict = {
