@@ -1,6 +1,5 @@
 from datetime import datetime
 from .server import SocketServer
-from .sensor_test import get_data_from_dht11
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
 
@@ -113,7 +112,7 @@ class TaskService(SocketServer):
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
         # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
-        response_from_sensor = dict()
+        response_from_sensor = {"dupa": "salata"}
         if response_from_sensor:
             self.update_dict_with_task_information()
         else:
@@ -157,6 +156,8 @@ class TaskService(SocketServer):
         return self.response_data
 
 
+# To test this code local go to repo dir ---> python3 -m Server.task_interface
+# To test connect and get response from server ----> python3 tests/runner.py
 server = TaskService(7555, "Adf#44fxc")
 while True:
     print("Waiting for connection ... \n")
