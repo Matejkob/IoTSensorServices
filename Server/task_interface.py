@@ -112,11 +112,11 @@ class TaskService(SocketServer):
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
         # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
-        response_from_sensor = {"dupa": "salata"}
-        if response_from_sensor:
+        self.response_data = {"example_key": "butter", "error_code": "123"}
+        if self.response_data:
             self.update_dict_with_task_information()
         else:
-            self.update_dict_with_task_information(response_from_sensor['error_code'])
+            self.update_dict_with_task_information(self.response_data['error_code'])
 
     def _get_state_of_all_sensors(self):
         print("getting state of sensors")
