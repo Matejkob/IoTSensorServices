@@ -1,5 +1,5 @@
 import socket
-from .data_ciphering import DataCiphering
+# from .data_ciphering import DataCiphering
 import json
 
 
@@ -23,7 +23,7 @@ class SocketServer:
         self.remote_con_params = ""
         self.sock.bind((self.ip_address, self.port))
         self.sock.listen(3)
-        self.cipher = DataCiphering(private_key)
+        # self.cipher = DataCiphering(private_key)
 
     def __del__(self):
         self.close_connection()
