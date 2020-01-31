@@ -1,6 +1,5 @@
 from datetime import datetime
 from .server import SocketServer
-from .sensor_test import get_data_from_dht11
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
 
@@ -63,6 +62,7 @@ server_response_dict = {
     }
     'error': 'key_error' (FAILURE CASE)
 }
+############################################################
 Scenario_4:
 
 client_request_dict = {
@@ -112,11 +112,11 @@ class TaskService(SocketServer):
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
         # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
-        response_from_sensor = dict()
-        if response_from_sensor:
+        self.response_data = {"example_key": "butter", "error_code": "123"}
+        if self.response_data:
             self.update_dict_with_task_information()
         else:
-            self.update_dict_with_task_information(response_from_sensor['error_code'])
+            self.update_dict_with_task_information(self.response_data['error_code'])
 
     def _get_state_of_all_sensors(self):
         print("getting state of sensors")
@@ -156,6 +156,8 @@ class TaskService(SocketServer):
         return self.response_data
 
 
+# To test this code local go to repo dir ---> python3 -m Server.task_interface
+# To test connect and get response from server ----> python3 tests/runner.py
 server = TaskService(7555, "Adf#44fxc")
 while True:
     print("Waiting for connection ... \n")

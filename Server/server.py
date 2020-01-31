@@ -1,5 +1,6 @@
 import socket
 from .data_ciphering import DataCiphering
+import json
 
 
 class SocketServer:
@@ -34,7 +35,7 @@ class SocketServer:
         :param dictionary: input data to send through connection
         :return: None
         """
-        byte_data = self.cipher.encrypt_dict(dictionary)
+        byte_data = (json.dumps(dictionary)).encode("utf-8")
         self.connection.send(byte_data)
 
     def rcv_data(self):
@@ -43,7 +44,7 @@ class SocketServer:
 
         :return: output data in dictionary format
         """
-        dictionary = self.cipher.decrypt_dict(self.connection.recv(4096))
+        dictionary = json.loads(self.connection.recv(4096).decode("utf-8"))
         return dictionary
 
     def accept_remote_handshake(self):
