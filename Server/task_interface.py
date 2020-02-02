@@ -17,7 +17,7 @@ client_request_dict = {
 
 server_response_dict = {
 
-    'success flag': 'True',
+    'success_flag': 'True',
     'time_stamp': '2019-12-05 19:16:01',
     'data_from_sensor_api': {
     (...)
@@ -36,7 +36,7 @@ client_request_dict = {
 
 server_response_dict = {
 
-    'success flag': 'True',
+    'success_flag': 'True',
     'time_stamp': '2019-12-05 19:16:01',
     'data_from_sensor_api': {
     (...)
@@ -55,7 +55,7 @@ client_request_dict = {
 
 server_response_dict = {
 
-    'success flag': 'True',
+    'success_flag': 'True',
     'time_stamp': '2019-12-05 19:16:01',
     'data_from_sensor_api': {
     (...)
@@ -114,10 +114,10 @@ class TaskService(SocketServer):
     def update_dict_with_task_information(self, error_info=None):
         self.response_data.update({"time_stamp": self.time_stamp})
         if error_info:
-            self.response_data.update({"success flag": "False",
+            self.response_data.update({"success_flag": "False",
                                        "error": error_info})
         else:
-            self.response_data.update({"success flag": "True"})
+            self.response_data.update({"success_flag": "True"})
 
     def task_handler(self, received_data):
         try:
