@@ -1,6 +1,5 @@
 from chacha20poly1305 import ChaCha20Poly1305
 import json
-from hashlib import sha256
 from time import time
 
 
@@ -19,7 +18,7 @@ class DataCiphering:
         :param private_key: security access key
         """
         self.private_key = str(private_key)
-        self.cipher = ChaCha20Poly1305(sha256(private_key.encode("utf-8")).digest())
+        self.cipher = ChaCha20Poly1305(private_key)
         self.current_nonce = ""
         self.previous_nonce = ""
         self.decrypt_data_success = False
@@ -35,8 +34,8 @@ class DataCiphering:
         self.decrypt_data_success = False
         current_mixed_string = str(round(time() / 5)) + self.private_key
         previous_mixed_string = str(round(time() / 5) - 1) + self.private_key
-        self.current_nonce = sha256(current_mixed_string.encode("utf-8")).digest()[:12]
-        self.previous_nonce = sha256(previous_mixed_string.encode("utf-8")).digest()[:12]
+        self.current_nonce = current_mixed_string.encode("utf-8")[:12]
+        self.previous_nonce = previous_mixed_string.encode("utf-8")[:12]
 
     def _decrypt_data_with_nonce(self, nonce, data):
         """

@@ -63,25 +63,6 @@ server_response_dict = {
     }
     'error': 'key_error' (FAILURE CASE)
 }
-############################################################
-Scenario_4:
-
-client_request_dict = {
-
-    'action': 'sensor_calibration',
-    'sensor_id': 'all'
-    
-}
-
-server_response_dict = {
-
-    'success flag': 'True',
-    'time_stamp': '2019-12-05 19:16:01',
-    'data_from_sensor_api': {
-    (...)
-    }
-    'error': 'key_error' (FAILURE CASE)
-}
 """
 
 
