@@ -68,3 +68,8 @@ class SensorAPI:
         self.hcsr04_init_get_distance(21, 20)
         self.get_data_from_dht11(4)
         return {self.response_data[sensor_id]}
+
+if(__name__=="__main__"):
+    sensor = SensorAPI()
+    sensor.get_state_of_all_sensors()
+    print(sensor.get_data_from_sensor())
