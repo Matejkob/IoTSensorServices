@@ -17,7 +17,8 @@ class SensorAPI:
         self.get_data_from_dht11(4)
         if self.response_data["dht_11"]["Temp"]:
             self.response_data["dht_11"]["status"] = "active"
-            self.response_data["hcsr_04"]["status"] = "active"
+            self.response_data.update({"hcsr_04":{"status":"active"}})
+            # self.response_data["hcsr_04"]["status"] = "active"
         else:
             self.response_data["error_code"] = "initialization_failed"
 
@@ -55,7 +56,7 @@ class SensorAPI:
         # Wait for HIGH on ECHO
         while GPIO.input(echo) == 0:
             pulse_start = time.time()
-        # wait for LOW again
+        # wait for LOW again                                                                                                 
         while GPIO.input(echo) == 1:
             pulse_end = time.time()
         signal_delay = pulse_end - pulse_start
@@ -64,10 +65,10 @@ class SensorAPI:
         distance = int(signal_delay * const_divider)
         self.response_data["hcsr_04"]["distance"] = str(distance)
 
-    def get_data_from_sensor(self, sensor_id):
+    def get_data_from_sensor(self):
         self.hcsr04_init_get_distance(21, 20)
         self.get_data_from_dht11(4)
-        return {self.response_data[sensor_id]}
+        return self.response_data
 
 if(__name__=="__main__"):
     sensor = SensorAPI()
