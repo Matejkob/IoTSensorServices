@@ -1,5 +1,6 @@
 from datetime import datetime
 from .server import SocketServer
+from .sensors import SensorAPI
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
 
@@ -9,58 +10,34 @@ from .server import SocketServer
 Scenario_1:
 
 client_request_dict = {
-
     'action': 'get_data_from_sensor',
-    'sensor_id': '2'
-    
 }
 
 server_response_dict = {
-
-    'success_flag': 'True',
-    'time_stamp': '2019-12-05 19:16:01',
-    'data_from_sensor_api': {
-    (...)
-    }
+    'successFlag': 'True',
+    'timeStamp': '2019-12-05 19:16:01',
+    'data': {
+    
+    
+            
+            }
     'error': 'key_error' (FAILURE CASE)
 }
 ############################################################
 Scenario_2:
 
 client_request_dict = {
-
     'action': 'sensor_initialization',
-    'sensor_id': '2'
-    
 }
 
 server_response_dict = {
-
-    'success_flag': 'True',
-    'time_stamp': '2019-12-05 19:16:01',
-    'data_from_sensor_api': {
-    (...)
-    }
-    'error': 'key_error' (FAILURE CASE)
-}
-############################################################
-Scenario_3:
-
-client_request_dict = {
-
-    'action': 'get_state_of_all_sensors',
-    'sensor_id': 'all'
-    
-}
-
-server_response_dict = {
-
-    'success_flag': 'True',
-    'time_stamp': '2019-12-05 19:16:01',
-    'data_from_sensor_api': {
-    (...)
-    }
-    'error': 'key_error' (FAILURE CASE)
+    'successFlag': 'True',
+    'timeStamp': '2019-12-05 19:16:01',
+    'data': {
+              "dht11": { "Temp": (...), "Humidity": (...), "status": "active" },
+              "hcsr04": {"distance": (...), "status": "active"}
+            }
+    'error': 'keyError' (FAILURE CASE)
 }
 """
 
@@ -70,69 +47,48 @@ class TaskService(SocketServer):
     def __init__(self, port, private_key, server_interface_ip=""):
         self.time_stamp = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
         self.response_data = {}
+        self.sensor_interface = SensorAPI()
         super().__init__(port, private_key, server_interface_ip)
 
     def _initialization(self):
         print("all sensor initialization")
-        # response_from_sensor = SensorAPI()._initialization()
-        response_from_sensor = dict()
+        response_from_sensor = self.sensor_interface.initialize_all_sensors()
         if response_from_sensor:
+            self.response_data.update(response_from_sensor)
             self.update_dict_with_task_information()
         else:
-            self.update_dict_with_task_information(response_from_sensor['error_code'])
+            self.update_dict_with_task_information(response_from_sensor['errorCode'])
 
-    def _calibration(self, sensor_id):
-        print("sensor calibration")
-        # response_from_sensor = SensorAPI().calibration(sensor_id)
-        response_from_sensor = dict()
-        if response_from_sensor:
-            self.update_dict_with_task_information()
-        else:
-            self.update_dict_with_task_information(response_from_sensor['error_code'])
-
-    def _get_data_from_sensor(self, sensor_id):
+    def _get_data_from_sensor(self):
         print("getting data from sensor")
-        # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
-        self.response_data = {"example_key": "butter", "error_code": "123"}
+        response_from_sensor = self.sensor_interface.get_data_from_sensor()
         if self.response_data:
+            self.response_data.update(response_from_sensor)
             self.update_dict_with_task_information()
         else:
-            self.update_dict_with_task_information(self.response_data['error_code'])
-
-    def _get_state_of_all_sensors(self):
-        print("getting state of sensors")
-        # response_from_sensor = SensorAPI().get_state_of_all_sensors()
-        response_from_sensor = dict()
-        if response_from_sensor:
-            self.update_dict_with_task_information()
-        else:
-            self.update_dict_with_task_information(response_from_sensor['error_code'])
+            self.update_dict_with_task_information(self.response_data['errorCode'])
 
     def clear_response_data(self):
         self.response_data = {}
 
     def update_dict_with_task_information(self, error_info=None):
-        self.response_data.update({"time_stamp": self.time_stamp})
+        self.response_data.update({"timeStamp": self.time_stamp})
         if error_info:
-            self.response_data.update({"success_flag": "False",
+            self.response_data.update({"successFlag": "False",
                                        "error": error_info})
         else:
-            self.response_data.update({"success_flag": "True"})
+            self.response_data.update({"successFlag": "True"})
 
     def task_handler(self, received_data):
         try:
             if received_data["action"] == "sensors_initialization":
                 self._initialization()
             elif received_data["action"] == "get_data_from_sensor":
-                self._get_data_from_sensor(int(received_data["sensor_id"]))
-            elif received_data["action"] == "get_state_of_all_sensors":
-                self._get_state_of_all_sensors()
-            elif received_data["action"] == "sensor_calibration":
-                self._calibration(int(received_data["sensor_id"]))
+                self._get_data_from_sensor()
             else:
-                self.update_dict_with_task_information("action_error")
+                self.update_dict_with_task_information("actionError")
         except KeyError:
-            self.update_dict_with_task_information("key_error")
+            self.update_dict_with_task_information("errorCode")
 
         return self.response_data
 
