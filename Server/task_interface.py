@@ -1,6 +1,5 @@
 from datetime import datetime
 from .server import SocketServer
-from .sensor_test import get_data_from_dht11
 
 # python3 -m Server.task_interface.py  <------ to run task_interface.py
 
@@ -44,25 +43,6 @@ server_response_dict = {
     }
     'error': 'key_error' (FAILURE CASE)
 }
-############################################################
-Scenario_3:
-
-client_request_dict = {
-
-    'action': 'get_state_of_all_sensors',
-    'sensor_id': 'all'
-    
-}
-
-server_response_dict = {
-
-    'success flag': 'True',
-    'time_stamp': '2019-12-05 19:16:01',
-    'data_from_sensor_api': {
-    (...)
-    }
-    'error': 'key_error' (FAILURE CASE)
-}
 """
 
 
@@ -94,7 +74,7 @@ class TaskService(SocketServer):
     def _get_data_from_sensor(self, sensor_id):
         print("getting data from sensor")
         # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
-        response_from_sensor = dict()
+        response_from_sensor = {"exampleKey": "bread"}
         if response_from_sensor:
             self.update_dict_with_task_information()
         else:
@@ -138,7 +118,7 @@ class TaskService(SocketServer):
         return self.response_data
 
 
-server = TaskService(7555, "Adf#44fxc")
+server = TaskService(7555, "8x/A?D(G-KaPdSgVkYp3s6v9y$B&E)H@")
 while True:
     print("Waiting for connection ... \n")
     server.accept_remote_handshake()
