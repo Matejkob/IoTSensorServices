@@ -18,7 +18,7 @@ class DataCiphering:
         :param private_key: security access key
         """
         self.private_key = str(private_key)
-        self.cipher = ChaCha20Poly1305(private_key)
+        self.cipher = ChaCha20Poly1305(private_key.encode("utf-8"))
         self.current_nonce = ""
         self.previous_nonce = ""
         self.decrypt_data_success = False

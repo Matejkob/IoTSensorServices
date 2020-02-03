@@ -76,6 +76,7 @@ class TaskService(SocketServer):
         # response_from_sensor = SensorAPI().get_data_from_sensor(sensor_id)
         response_from_sensor = {"exampleKey": "bread"}
         if response_from_sensor:
+            self.response_data.update(response_from_sensor)
             self.update_dict_with_task_information()
         else:
             self.update_dict_with_task_information(response_from_sensor['error_code'])
