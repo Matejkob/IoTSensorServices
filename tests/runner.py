@@ -15,11 +15,11 @@ client_request_dict_1 = {
 }
 
 client_request_dict_2 = {
-    'action': 'incorrect_action_string',
+    'action': 'sensors_initialization',
     'sensor_id': '4',
 }
 
-server_ip = "127.0.0.1"
+server_ip = "192.168.1.80"
 port = 7555
 #############################################################################
 # TestCase 1

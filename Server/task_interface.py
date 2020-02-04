@@ -27,7 +27,7 @@ server_response_dict = {
 Scenario_2:
 
 client_request_dict = {
-    'action': 'sensor_initialization',
+    'action': 'sensors_initialization',
 }
 
 server_response_dict = {
@@ -62,7 +62,7 @@ class TaskService(SocketServer):
     def _get_data_from_sensor(self):
         print("getting data from sensor")
         response_from_sensor = self.sensor_interface.get_data_from_sensor()
-        if self.response_data:
+        if response_from_sensor:
             self.response_data.update(response_from_sensor)
             self.update_dict_with_task_information()
         else:
