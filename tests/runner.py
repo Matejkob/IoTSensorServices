@@ -28,9 +28,10 @@ s = socket.socket()
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
 s.connect((server_ip, port))
 s.send((json.dumps(client_request_dict_1)).encode("utf-8"))
-resp_1 = json.loads(s.recv(4096).decode("utf-8"))
+resp = s.recv(4096).decode("utf-8")
+resp_1 = json.loads(resp)
 print("RECEIVED RESPONSE:\n")
-print(resp_1)
+print(resp)
 s.close()
 # assert resp_1["success flag"] == 'True'
 # assert not resp_1["data"] == {}
