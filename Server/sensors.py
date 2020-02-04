@@ -10,17 +10,13 @@ class SensorAPI:
     """
 
     def __init__(self):
-        self.response_data = dict()
+        self.response_data = [{},{}]
+        self.initialize_all_sensors()
 
     def initialize_all_sensors(self):
         self.hcsr04_init(21, 20)
         self.get_data_from_dht11(4)
-        if self.response_data["dht_11"]["Temp"]:
-            self.response_data["dht_11"]["status"] = "active"
-            self.response_data["hcsr_04"]["status"] = "active"
-        else:
-            self.response_data["error_code"] = "initialization_failed"
-
+        self.response_data[1].update({"name":"Czujnik Odległości","status":"active"})
         return self.response_data
 
     def get_state_of_all_sensors(self):
@@ -31,10 +27,10 @@ class SensorAPI:
         humidity, temperature = Adafruit_DHT.read_retry(Adafruit_DHT.DHT11, pin_id)
 
         if humidity is not None and temperature is not None:
-            self.response_data.update(
-                {"dht_11": {"Temp": '{0:0.1f}*C'.format(temperature), "Humidity": '{0:0.1f}%'.format(humidity)}})
+            value = 'Temperatura: {0:0.1f}*C'.format(temperature) + '   Wilgotność: {0:0.1f}%'.format(humidity)
+            self.response_data[0].update({"status":"active","name":"Czujnik Temperatury i wilgotności","value":value})
         else:
-            self.response_data.update({"data": {"Temp": None, "Humidity": None}})
+            self.response_data[0].update({"name":"Czujnik Temperatury i wilgotności","status":"inactive","Temp": None, "Humidity": None})
 
     def hcsr04_init(self, trig, echo):
         """
@@ -55,16 +51,22 @@ class SensorAPI:
         # Wait for HIGH on ECHO
         while GPIO.input(echo) == 0:
             pulse_start = time.time()
-        # wait for LOW again
+        # wait for LOW again                                                                                                 
         while GPIO.input(echo) == 1:
             pulse_end = time.time()
         signal_delay = pulse_end - pulse_start
         # divider for uS to  s
         const_divider = 1000000 / 58
         distance = int(signal_delay * const_divider)
-        self.response_data["hcsr_04"]["distance"] = str(distance)
+        value = "Dystans: "+ str(distance)
+        self.response_data[1].update({"value":value})
 
-    def get_data_from_sensor(self, sensor_id):
+    def get_data_from_sensor(self):
         self.hcsr04_init_get_distance(21, 20)
         self.get_data_from_dht11(4)
-        return {self.response_data[sensor_id]}
+        return self.response_data
+
+if(__name__=="__main__"):
+    sensor = SensorAPI()
+    sensor.get_state_of_all_sensors()
+    print(sensor.get_data_from_sensor())
