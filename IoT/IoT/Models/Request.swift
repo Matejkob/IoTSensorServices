@@ -8,14 +8,10 @@
 
 import Foundation
 
-enum RequestAction: String, Codable {
-    case sensor_initialization
-    case sensor_calibration
-    case get_data_from_sensor
-    case get_state_of_all_sensors
+enum RequestAction: String {
+    case get_data_from_sensor = "get_data_from_sensor"
 }
 
 struct Request: Codable {
-    var action: RequestAction
-    var sensor_id: Int
+    var action: String
 }

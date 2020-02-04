@@ -24,6 +24,7 @@
 		6163A5DA23D47E6900F06158 /* DeviceDetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6163A5D923D47E6900F06158 /* DeviceDetailsViewController.swift */; };
 		61654B9F23D4A2860065AAF6 /* Request.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61654B9E23D4A2860065AAF6 /* Request.swift */; };
 		61654BA123D4A3610065AAF6 /* Response.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61654BA023D4A3610065AAF6 /* Response.swift */; };
+		61D82CCC23E9FE46000FDA26 /* SpinerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 61D82CCB23E9FE46000FDA26 /* SpinerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,6 +48,7 @@
 		6163A5D923D47E6900F06158 /* DeviceDetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceDetailsViewController.swift; sourceTree = "<group>"; };
 		61654B9E23D4A2860065AAF6 /* Request.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Request.swift; sourceTree = "<group>"; };
 		61654BA023D4A3610065AAF6 /* Response.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Response.swift; sourceTree = "<group>"; };
+		61D82CCB23E9FE46000FDA26 /* SpinerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpinerViewController.swift; sourceTree = "<group>"; };
 		C361152A17FF0745B2FA3648 /* Pods-IoT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IoT.debug.xcconfig"; path = "Target Support Files/Pods-IoT/Pods-IoT.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -143,6 +145,7 @@
 				6114B6A523D449BB00E4C155 /* User Profile */,
 				6114B6A423D449B200E4C155 /* Home */,
 				6114B6A323D449A900E4C155 /* Main TabBar */,
+				61D82CCB23E9FE46000FDA26 /* SpinerViewController.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -332,6 +335,7 @@
 				61654BA123D4A3610065AAF6 /* Response.swift in Sources */,
 				6121719423D43DED005225A3 /* AppDelegate.swift in Sources */,
 				6163A5D423D4716600F06158 /* Device.swift in Sources */,
+				61D82CCC23E9FE46000FDA26 /* SpinerViewController.swift in Sources */,
 				6163A5CF23D46D9900F06158 /* SaveButton.swift in Sources */,
 				6163A5CD23D4685500F06158 /* InputTextField.swift in Sources */,
 				6163A5D623D471BC00F06158 /* DevicesManagers.swift in Sources */,

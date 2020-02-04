@@ -11,7 +11,7 @@ import SnapKit
 
 extension CollectionViewCell {
     struct ViewModel {
-        var device = Device()
+        var sensor = Sensor(status: "", name: "", value: "")
     }
 }
 
@@ -35,8 +35,8 @@ class CollectionViewCell: UICollectionViewCell {
 
 extension CollectionViewCell {
     func updateView(with viewModel: ViewModel) {
-        nameLabel.text = viewModel.device.name
-        ipAddres.text = "IP: " + viewModel.device.ip
+        nameLabel.text = viewModel.sensor.name
+        ipAddres.text = viewModel.sensor.value
     }
 }
 
@@ -65,7 +65,7 @@ extension CollectionViewCell {
     }
     
     private func setupNameLable() {
-        nameLabel.numberOfLines = 2
+        nameLabel.numberOfLines = 0
         nameLabel.textColor = .white
         nameLabel.font = UIFont.systemFont(ofSize: 14, weight: .bold)
         
@@ -78,12 +78,13 @@ extension CollectionViewCell {
     }
     
     private func setupIpAddres() {
+        ipAddres.numberOfLines = 0
         ipAddres.textColor = .white
         ipAddres.font = UIFont.systemFont(ofSize: 13, weight: .regular)
         
         addSubview(ipAddres)
         ipAddres.snp.makeConstraints { (make) in
-            make.top.equalTo(self.nameLabel.snp.bottom).offset(2)
+            make.top.equalTo(self.nameLabel.snp.bottom).offset(4)
             make.left.equalTo(self).offset(12)
             make.right.equalTo(self).offset(-12)
         }

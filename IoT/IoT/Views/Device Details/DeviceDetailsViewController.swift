@@ -11,36 +11,36 @@ import Socket
 
 class DeviceDetailsViewController: UIViewController {
     
-    var device = Device()
     private var socket: Socket?
+    private(set) var label = UILabel()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        navigationController?.navigationBar.tintColor = .white
+    }
 }
 
 extension DeviceDetailsViewController {
     private func setupView() {
-        view.backgroundColor = .white
+        view.backgroundColor = .systemPink
+        setupLabel()
     }
     
-    private func createSocket() {
-        do {
-            socket = try Socket.create()
-        } catch {
-            print("Error while create socket")
-        }
-    }
-    
-    private func connectToServer() {
-        guard let socket = socket else {
-            return
-        }
-        do {
-            try socket.connect(to: "80.54.73.236", port: 7555)
-        } catch {
-            print("Error while connecting to server")
+    private func setupLabel() {
+        label.font = UIFont.systemFont(ofSize: 19.0, weight: .regular)
+        label.textColor = .white
+        label.numberOfLines = 0
+        label.textAlignment = .center
+        view.addSubview(label)
+        label.snp.makeConstraints { (make) in
+            make.center.equalTo(self.view)
+            make.left.equalTo(self.view).offset(16)
+            make.right.equalTo(self.view).offset(-16)
         }
     }
 }

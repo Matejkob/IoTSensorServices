@@ -8,9 +8,14 @@
 
 import Foundation
 
+struct Sensor: Codable {
+    var status: String
+    var name: String
+    var value: String
+}
+
 struct Response: Codable {
-    var successFlag: Bool
-    var timeStamp: Data
-    var dataFromSensor: String // TODO: Chnage to correct
-    var error: String
+    var sensors: [Sensor]
+    var timeStamp: String
+    var successFlag: String
 }
