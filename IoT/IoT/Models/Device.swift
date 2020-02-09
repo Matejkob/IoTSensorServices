@@ -11,6 +11,6 @@ import Foundation
 struct Device: Codable {
     var name = ""
     var ip = ""
-    var port = ""
+    var port: Int32 = 0
     var key = ""
 }

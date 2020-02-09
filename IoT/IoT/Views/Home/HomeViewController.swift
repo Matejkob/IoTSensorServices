@@ -20,7 +20,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        connectToServer()
+        connectToServerAndGetData()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -64,11 +64,11 @@ extension HomeViewController {
     
     @objc private func fetchData() {
         showSpiner()
-        connectToServer()
+        connectToServerAndGetData()
         dismissSpiner()
     }
     
-    private func connectToServer() {
+    func connectToServerAndGetData() {
         do {
             socket = try Socket.create()
         } catch {
@@ -80,7 +80,7 @@ extension HomeViewController {
             return
         }
         do {
-            try socket.connect(to: "46.174.0.213", port: 7555)
+            try socket.connect(to: DeviceManager.shared.device.ip, port: DeviceManager.shared.device.port)
         } catch {
             print("Error while connecting to server")
             return
@@ -111,9 +111,9 @@ extension HomeViewController {
         }
         
         do {
-            let readData = try JSONDecoder().decode(Response.self, from: data)
-            if readData.successFlag == "True" {
-                sensors = readData.sensors
+            let receiveData = try JSONDecoder().decode(Response.self, from: data)
+            if receiveData.successFlag == "True" {
+                sensors = receiveData.sensors
                 collectionView?.reloadData()
             }
         } catch {

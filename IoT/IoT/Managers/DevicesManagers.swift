@@ -8,9 +8,9 @@
 
 import Foundation
 
-class DevicesManagers {
+class DeviceManager {
     
-    static let shared = DevicesManagers()
+    static let shared = DeviceManager()
     
-    var devices: [Device] = []
+    var device = Device()
 }

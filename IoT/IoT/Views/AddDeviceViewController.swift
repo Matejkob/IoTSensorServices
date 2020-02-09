@@ -44,10 +44,10 @@ extension AddDeviceViewController {
         inputsStackView.spacing = 24.0
         inputsStackView.distribution = .equalSpacing
         
-        setupNameInputTextField()
+//        setupNameInputTextField()
         setupIpInputTextField()
         setupPortInputTextField()
-        setupKeyInputTextField()
+//        setupKeyInputTextField()
         setupSaveButton()
         
         view.addSubview(inputsStackView)
@@ -57,12 +57,12 @@ extension AddDeviceViewController {
             make.right.equalTo(self.view).offset(-16)
         }
     }
-    
+    /*
     private func setupNameInputTextField() {
         nameInputTextField.placeholder = "Nazwa urządzenia"
         inputsStackView.addArrangedSubview(nameInputTextField)
     }
-    
+    */
     private func setupIpInputTextField() {
         ipInputTextField.placeholder = "Adres IP urządzenia"
         inputsStackView.addArrangedSubview(ipInputTextField)
@@ -72,12 +72,12 @@ extension AddDeviceViewController {
         portInputTextField.placeholder = "Port urządzenia"
         inputsStackView.addArrangedSubview(portInputTextField)
     }
-    
+    /*
     private func setupKeyInputTextField() {
         keyInputTextField.placeholder = "Klucz bezpieczeństwa"
         inputsStackView.addArrangedSubview(keyInputTextField)
     }
-    
+    */
     private func setupSaveButton() {
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         inputsStackView.addArrangedSubview(saveButton)
@@ -88,25 +88,19 @@ extension AddDeviceViewController {
     }
     
     @objc private func saveButtonPressed() {
-        guard let name = nameInputTextField.text,
-            let ip = ipInputTextField.text,
-            let port = portInputTextField.text,
-            let key = keyInputTextField.text,
-            !name.isEmpty,
-            !ip.isEmpty,
-            !port.isEmpty,
-            !key.isEmpty else {
+        guard let ip = ipInputTextField.text, let port = portInputTextField.text, !ip.isEmpty, !port.isEmpty else {
             let alert = UIAlertController(title: "Uzupełnij wszystkie pola", message: "Wszyskie dane muszą zostać podane.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
             present(alert, animated: true)
             return
         }
         var newDevice = Device()
-        newDevice.name = name
+//        newDevice.name = name
         newDevice.ip = ip
-        newDevice.port = port
-        newDevice.key = key
-        DevicesManagers.shared.devices.append(newDevice)
+        newDevice.port = Int32(port) ?? 0
+//        newDevice.key = key
+        DeviceManager.shared.device = newDevice
+        homeViewController?.connectToServerAndGetData()
         homeViewController?.collectionView?.reloadData()
         dismissAction()
     }
