@@ -37,7 +37,7 @@ To install client app you need Xcode 11.0+, Mac OS X 10.15+. Just clone this rep
 ### Server
 TODO ❗️
 ### Client
-TODO ❗️
+User can trigger fetching data in three ways. 1. At application start, data is downloading from the remembered ip address and port. 2. User can manually trigger fetching by pressing refresh button. 3. When a user add new ip address with port and press "Add" button data will be automatically fetch. IP address and port are saved in User Defaults - an interface to the user’s defaults database, where you store key-value pairs persistently across launches of your app. The networking work on TCP. Firstly we are creating socket. Next we try connect to server. If result of it will be successful we encode swift struct to json data and we write this data to server. Nextly we call read metod and when we receive data from socket we decode data and update UI. Everything Everything happens on the main thread.
 
 ## Dependencies
 ### Server
