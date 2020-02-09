@@ -12,7 +12,9 @@
 
 ## Requirements
 ### Server
-TODO ❗️
+* Python 3.0+
+* Raspbian 4.0+
+TODO
 ### Client
 * Mac OS X 10.15+
 * iOS 13.0+
@@ -26,6 +28,7 @@ TODO ❗️
 
 ## Installation and Usage
 ### Server
+To install server you need Raspian 4.0+ installed on Rassbery pi. Connect the sensors to Pi and clone the repo. If you changed pin connection just set the varibles in code. To start program run it with command line "python3 -m Server.task_interface.py". 
 TODO ❗️
 ### Client
 To install client app you need Xcode 11.0+, Mac OS X 10.15+. Just clone this repo, open loT -> loT.xcworkspace in xcode and buill it on your own device. Nextly to connect to server you have to chose UITabBarItem with a 'plus' icon in UITabBar. Complete the data and click the button. Client will try connect to the server and fetch data. 
