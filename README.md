@@ -20,9 +20,9 @@ TODO ❗️
 * Swift 5.1+
 
 ## Features
-[x] Easy connecting to the server with known IP and port address
-[x] Readable interface to read data from sensors
-[x] Easy connection of sensors
+- [x] Easy connecting to the server with known IP and port address
+- [x] Readable interface to read data from sensors
+- [x] Easy connection of sensors
 
 ## Installation and Usage
 ### Server
