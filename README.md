@@ -34,6 +34,7 @@ To install client app you need Xcode 11.0+, Mac OS X 10.15+. Just clone this rep
 ### Server
 TODO ❗️
 ### Client
+TODO ❗️
 
 ## Dependencies
 ### Server
