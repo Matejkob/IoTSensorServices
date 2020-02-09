@@ -5,7 +5,7 @@
 - [Requirements](#requirements)
 - [Features](#features)
 - [Installation and Usage](#installation-and-usage)
-- [How it's working](#how-it's-working)
+- [How it's working](#how-it-is-working)
 - [Dependencies](#dependencies)
 - [Authors](#authors)
 - [License](#license)
@@ -30,7 +30,7 @@ TODO ❗️
 ### Client
 To install client app you need Xcode 11.0+, Mac OS X 10.15+. Just clone this repo, open loT -> loT.xcworkspace in xcode and buill it on your own device. Nextly to connect to server you have to chose UITabBarItem with a 'plus' icon in UITabBar. Complete the data and click the button. Client will try connect to the server and fetch data. 
 
-## How it's working
+## How it is working
 ### Server
 TODO ❗️
 ### Client
