@@ -12,7 +12,7 @@ import Socket
 
 class HomeViewController: UIViewController {
     
-    var collectionView: UICollectionView?
+    private var collectionView: UICollectionView?
     private var socket: Socket?
     private var sensors: [Sensor] = []
     private let spinnerViewController = SpinnerViewController()

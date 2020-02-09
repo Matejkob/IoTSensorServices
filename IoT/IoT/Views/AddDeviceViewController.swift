@@ -12,12 +12,11 @@ class AddDeviceViewController: UIViewController {
     
     var homeViewController: HomeViewController?
     
-    private let nameInputTextField = InputTextField()
     private let ipInputTextField = InputTextField()
     private let portInputTextField = InputTextField()
-    private let keyInputTextField = InputTextField()
     private let saveButton = SaveButton(type: .system)
     private let inputsStackView = UIStackView()
+    private let spinnerViewController = SpinnerViewController()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,10 +43,8 @@ extension AddDeviceViewController {
         inputsStackView.spacing = 24.0
         inputsStackView.distribution = .equalSpacing
         
-//        setupNameInputTextField()
         setupIpInputTextField()
         setupPortInputTextField()
-//        setupKeyInputTextField()
         setupSaveButton()
         
         view.addSubview(inputsStackView)
@@ -57,12 +54,7 @@ extension AddDeviceViewController {
             make.right.equalTo(self.view).offset(-16)
         }
     }
-    /*
-    private func setupNameInputTextField() {
-        nameInputTextField.placeholder = "Nazwa urządzenia"
-        inputsStackView.addArrangedSubview(nameInputTextField)
-    }
-    */
+    
     private func setupIpInputTextField() {
         ipInputTextField.placeholder = "Adres IP urządzenia"
         inputsStackView.addArrangedSubview(ipInputTextField)
@@ -72,12 +64,7 @@ extension AddDeviceViewController {
         portInputTextField.placeholder = "Port urządzenia"
         inputsStackView.addArrangedSubview(portInputTextField)
     }
-    /*
-    private func setupKeyInputTextField() {
-        keyInputTextField.placeholder = "Klucz bezpieczeństwa"
-        inputsStackView.addArrangedSubview(keyInputTextField)
-    }
-    */
+
     private func setupSaveButton() {
         saveButton.addTarget(self, action: #selector(saveButtonPressed), for: .touchUpInside)
         inputsStackView.addArrangedSubview(saveButton)
@@ -95,13 +82,25 @@ extension AddDeviceViewController {
             return
         }
         var newDevice = Device()
-//        newDevice.name = name
         newDevice.ip = ip
         newDevice.port = Int32(port) ?? 0
-//        newDevice.key = key
         DeviceManager.shared.device = newDevice
+        showSpiner()
         homeViewController?.connectToServerAndGetData()
-        homeViewController?.collectionView?.reloadData()
+        dismissSpiner()
         dismissAction()
+    }
+
+    private func showSpiner() {
+        addChild(spinnerViewController)
+        spinnerViewController.view.frame = view.frame
+        view.addSubview(spinnerViewController.view)
+        spinnerViewController.didMove(toParent: self)
+    }
+    
+    private func dismissSpiner() {
+        spinnerViewController.willMove(toParent: nil)
+        spinnerViewController.view.removeFromSuperview()
+        spinnerViewController.removeFromParent()
     }
 }
