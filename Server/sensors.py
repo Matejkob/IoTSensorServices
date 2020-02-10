@@ -10,13 +10,13 @@ class SensorAPI:
     """
 
     def __init__(self):
-        self.response_data = [{},{}]
+        self.response_data = [{}, {}]
         self.initialize_all_sensors()
 
     def initialize_all_sensors(self):
         self.hcsr04_init(21, 20)
         self.get_data_from_dht11(4)
-        self.response_data[1].update({"name":"Czujnik Odległości","status":"active"})
+        self.response_data[1].update({"name": "Czujnik Odległości", "status": "active"})
         return self.response_data
 
     def get_state_of_all_sensors(self):
@@ -28,9 +28,11 @@ class SensorAPI:
 
         if humidity is not None and temperature is not None:
             value = 'Temperatura: {0:0.1f}*C'.format(temperature) + '   Wilgotność: {0:0.1f}%'.format(humidity)
-            self.response_data[0].update({"status":"active","name":"Czujnik Temperatury i wilgotności","value":value})
+            self.response_data[0].update(
+                {"status": "active", "name": "Czujnik Temperatury i wilgotności", "value": value})
         else:
-            self.response_data[0].update({"name":"Czujnik Temperatury i wilgotności","status":"inactive","Temp": None, "Humidity": None})
+            self.response_data[0].update(
+                {"name": "Czujnik Temperatury i wilgotności", "status": "inactive", "Temp": None, "Humidity": None})
 
     def hcsr04_init(self, trig, echo):
         """
@@ -58,15 +60,16 @@ class SensorAPI:
         # divider for uS to  s
         const_divider = 1000000 / 58
         distance = int(signal_delay * const_divider)
-        value = "Dystans: "+ str(distance)
-        self.response_data[1].update({"value":value})
+        value = "Dystans: " + str(distance)
+        self.response_data[1].update({"value": value})
 
     def get_data_from_sensor(self):
         self.hcsr04_init_get_distance(21, 20)
         self.get_data_from_dht11(4)
         return self.response_data
 
-if(__name__=="__main__"):
+
+if (__name__ == "__main__"):
     sensor = SensorAPI()
     sensor.get_state_of_all_sensors()
     print(sensor.get_data_from_sensor())

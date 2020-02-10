@@ -17,9 +17,7 @@ server_response_dict = {
     'successFlag': 'True',
     'timeStamp': '2019-12-05 19:16:01',
     'data': {
-    
-    
-            
+            (...)
             }
     'error': 'key_error' (FAILURE CASE)
 }
@@ -34,8 +32,7 @@ server_response_dict = {
     'successFlag': 'True',
     'timeStamp': '2019-12-05 19:16:01',
     'data': {
-              "dht11": { "Temp": (...), "Humidity": (...), "status": "active" },
-              "hcsr04": {"distance": (...), "status": "active"}
+              (...)
             }
     'error': 'keyError' (FAILURE CASE)
 }
@@ -54,7 +51,7 @@ class TaskService(SocketServer):
         print("all sensor initialization")
         response_from_sensor = self.sensor_interface.initialize_all_sensors()
         if response_from_sensor:
-            self.response_data.update({"sensors":response_from_sensor})
+            self.response_data.update({"sensors": response_from_sensor})
             self.update_dict_with_task_information()
         else:
             self.update_dict_with_task_information(response_from_sensor['errorCode'])
@@ -63,7 +60,7 @@ class TaskService(SocketServer):
         print("getting data from sensor")
         response_from_sensor = self.sensor_interface.get_data_from_sensor()
         if response_from_sensor:
-            self.response_data.update({"sensors":response_from_sensor})
+            self.response_data.update({"sensors": response_from_sensor})
             self.update_dict_with_task_information()
         else:
             self.update_dict_with_task_information(self.response_data['errorCode'])
